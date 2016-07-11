@@ -1,0 +1,15 @@
+# invitant
+# transport
+# logement
+# repas
+# financement
+# besoins
+-
+  adress: "prenom.nom@univ-lille1.fr"
+  data :
+    - invitant
+    - transport
+    - logement
+    - repas
+    - financement
+    - besoins

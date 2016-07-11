@@ -1,0 +1,120 @@
+---
+# Only the main Sass file needs front matter (the dashes are enough)
+---
+[v-cloak] {
+  display: none;
+}
+
+.jumbotron {
+  background-color: #EEC;
+}
+.jumbotron h1 {
+  color: #775;
+}
+
+.logo-container {
+  background-color: white;
+  display: inline-block;
+  padding: 2em;
+  border-radius: .35em;
+  box-shadow: .21em .35em .7em rgba(1,1,1,.35);
+  margin-top: -1.4em;
+}
+
+a.logo-container:hover {
+  box-shadow: .28em .42em .7em rgba(1,1,1,.42);
+}
+
+.logo-container img {
+  max-width: 70%;
+}
+
+.fa {
+  min-width: 1.4em; /* uniformisation de la largeur des logos */
+}
+
+fieldset {
+  margin-top: 2em;
+}
+
+legend {
+    margin-bottom: 0px;
+    border: none;
+    padding: .49em 1.4em;
+    background: #775;
+    color: white;
+    font-weight: bold;
+    letter-spacing: .35em;
+    text-transform: uppercase;
+    color: #EEC;
+}
+
+.field-container {
+  padding: 1em;
+  border-width: 0px 0px 1px 0px;
+  border-style: solid;
+  border-color: #EEE;
+}
+.field-container:first-child{
+  border-top-width: 1px;
+}
+.field-container:nth-child(odd){
+  background-color: #F7F7FF;
+}
+.field-container:nth-child(even){
+  background-color: #FDFDFD;
+}
+@media screen and (min-width: 768px) {
+  .label-container {
+    text-align: right;
+    padding-top: 7px;
+  }
+  .label-container > label::after{
+    content: ' :';
+  }
+  .totalprix {
+    display: inline-block;
+    margin: 7px 0px 5px 0px;
+  }
+}
+.totalprix {
+  font-weight: bold;
+}
+.datepicker {
+  width: 100%;
+}
+.help {
+  color: gray;
+}
+
+.help em {
+  color: #D50;
+}
+
+.total-forfait {
+  padding: .7em;
+}
+
+.button-container {
+  padding: 1em;
+  text-align: center;
+}
+
+footer {
+  min-height: 35em;
+  background: #333;
+  margin-top: 3em;
+}
+
+/* Animation */
+.fade-transition {
+  transition: all .7s ease;
+  position: relative;
+}
+.fade-enter, .fade-leave {
+  opacity: 0;
+  height:0;
+}
+.fade-enter, .fade-leave {
+  transform: translateX(7em);
+}

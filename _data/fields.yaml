@@ -1,0 +1,429 @@
+-
+  section : Invitant
+  id : invitant
+  fields :
+
+    -
+      label : Cadre d'invitation
+      type : select
+      variable : cadre
+      icon : list
+      v-for : type_cadre
+      help : Préciser dans quel cadre aura lieu l'invitation.
+      onchange : setCadre(cadre)
+
+    -
+      label : |
+        <span v-if="cadre && cadre.abr == 'cong'">Nom du congrès</span>
+        <span v-if="cadre && cadre.abr == 'jury'">De</span>
+        <span v-if="cadre && cadre.abr == 'autre'">Autre cadre</span>
+      type : text
+      variable : cadre_precision
+      if : cadre && (cadre.abr == 'cong' || cadre.abr == 'jury' || cadre.abr == 'autre')
+      icon : pencil
+      help : |
+        <span v-if="cadre && cadre.abr == 'cong'">Préciser de quel congrès il s'agit.</span>
+        <span v-if="cadre && cadre.abr == 'jury'">Prénom et NOM de la personne qui va soutenir la thèse/HdR.</span>
+        <span v-if="cadre && cadre.abr == 'autre'">Donner plus de précisions sur cette «&nbsp;autre&nbsp;» cadre.</span>
+
+    -
+      label : Choix du responsable
+      type : select
+      variable : responsable_seminaire
+      if : cadre && cadre.resp && cadre.resp.length > 1 && !invitant
+      icon : list
+      v-for : cadre.resp
+      help : Le responsable du [[cadre.nom]] qui gère cette invité.
+      onchange : setResp(responsable_seminaire)
+
+    -
+      label : Invitant
+      type : text
+      variable : invitant
+      if : invitant || cadre && (!cadre.resp || cadre.resp.length <= 1)
+      icon : user-secret
+      placeholder : Prénom NOM
+      help : Préciser le prénom et le nom de la personne <b>qui invite</b>.
+
+    -
+      label : Mail de l'invitant
+      type : email
+      variable : mail_invitant
+      if : invitant || mail_invitant
+      icon : envelope
+      help : Il s'agit de l'adresse mail de [[invitant]].
+
+-
+  section : Information sur l'invité(e)
+  id : invite
+  fields :
+
+    -
+      label : NOM de l'invité(e)
+      type : text
+      variable : nom_invite
+      icon : user
+      placeholder : NOM
+      help : Il s'agit du nom de famille de la personne <b>invitée</b>.
+
+    -
+      label : Prénom de l'invité(e)
+      type : text
+      variable : prenom_invite
+      icon : user
+      placeholder : Prénom
+      help : Il s'agit du prénom de la personne <b>invitée</b>.
+
+    -
+      label : Organisme de rattachement
+      type : text
+      variable : organisme_invite
+      icon : university
+      placeholder : Université ...
+      help : Le nom de l'organisme (université, institut, ...) dont dépend [[invite]].
+
+    -
+      label : Mail de l'invité(e)
+      type : email
+      variable : mail_invite
+      icon : envelope
+      help : >
+        L'adresse mail de [[invite]].<br>
+        <em>Si [[invite]] aura besoin de l'ouverture d'un compte informatique, il est impératif de renseigner l'adresse mail institutionnelle.</em>
+-
+  section : Dates du séjour
+  id : dates
+  fields :
+
+    -
+      label : Début du séjour
+      type : date
+      variable : date_debut
+      icon : calendar
+      placeholder : JJ/MM/AAAA
+      max : date_fin
+      help : La date du premier jour de [[invite]] à Lille.
+
+    -
+      label : Fin du séjour
+      type : date
+      variable : date_fin
+      icon : calendar
+      placeholder : JJ/MM/AAAA
+      min : date_debut
+      help : La date du dernier jour de [[invite]] à Lille.
+
+-
+  section : Transport
+  id : transport
+  fields :
+
+    -
+      label : Frais de transport
+      type : select
+      variable : transport
+      default : "non"
+      icon : train
+      values :
+        - non
+        - remboursement
+        - achat de billets
+      help : |
+        <div v-if="transport == 'remboursement'">
+          Il faut que [[invite]] garde les originaux des tickets.<br>
+          De plus si l'invité(e) dépend d'une institution française, il(elle) aura besoin d'un ordre de mission sans frais.
+        </div>
+        <div v-if="transport == 'achat de billets'">
+          Il est obligatoire de réserver auprès de l'agence <b>CAP5 Voyages</b> Tél.&nbsp;:&nbsp;03.21.14.62.01 – Mél&nbsp;:&nbsp;<code>capaffaires@cap5.com</code><br>
+          Puis de transmettre le devis de l'agence à Véronique, bureau 106 bât. M2, <code>veronique.buffels@univ-lille1.fr</code>.
+        </div>
+
+    -
+      label : Lieu de départ
+      type : text
+      variable : lieu_depart
+      if : transport && transport != 'non'
+      icon : marker
+      placeholder : "ex: Paris"
+      help : |
+        La ville du départ de [[invite]].<br>
+        Si la ville de retour est différente vous pouvez l'indiquer également (<i>Par exemple : Paris/Lyon</i>).
+
+    -
+      label : Mode de transport
+      type : text
+      variable : mode_transport
+      if : transport && transport != 'non'
+      icon : space-shuttle
+      placeholder : "ex: train"
+      help : Train, avion, voiture, vélo, trottinette ...
+
+    -
+      label : Montant du transport
+      type : prix
+      variable : prix_transport
+      if : transport && transport != 'non'
+      icon : euro
+      placeholder : "ex: 120"
+      help : Une estimation du prix du transport<span v-if="mode_transport"> en [[mode_transport]]</span>.
+
+-
+  section : Logement
+  id : logement
+  if : duree_sejour > 0
+  fields :
+
+    -
+      label : Frais d'hôtel
+      type : select
+      variable : hotel
+      default : "non"
+      icon : hotel
+      values :
+        - non
+        - remboursement
+        - avec bon de commande
+      help : "Est-ce que [[invite]] a besoin d'un hôtel ? Si oui, comment effectuer le payement ?"
+
+    -
+      label : Type de remboursement
+      type : select
+      variable : hotel_remboursement
+      if : hotel == 'remboursement'
+      icon : legal
+      values :
+        - forfait
+        - frais réels
+      help : >
+        Suivant les règles en vigueur pour les personnes extérieures à Lille 1 :
+        forfait de [[[prix_forfait_nuit | euro]]]/nuit ou frais réels (avec justificatif) dans la limite de [[[prix_max_nuit | euro]]]/nuit.
+
+    -
+      label : Prix par nuit
+      type : prix
+      variable : prix_hotel_nuit
+      if : hotel == 'avec bon de commande' || hotel == 'remboursement' && hotel_remboursement == 'frais réels'
+      max : "[[* prix_max_nuit]]"
+      icon : euro
+      placeholder : "ex: 80"
+      help : Estimation du prix de la chambre d'hôtel (dans la limite de [[[prix_max_nuit | euro]]]).
+
+    -
+      label : Nombre de nuits
+      type : number
+      variable : nuits_hotel
+      if : hotel == 'remboursement' || hotel == 'avec bon de commande'
+      max : "[[duree_sejour]]"
+      icon : moon-o
+      total : "Total à rembourser : [[[total_hotel | euro]]]."
+      help : >
+        Indiquer le nombre de nuits que [[invite]] passera à l'hôtel.
+        Ce nombre ne peut pas dépasser la durée du séjour, qui est de [[duree_sejour]] nuits.
+
+    -
+      label : Total logement
+      type : totalprix
+      variable : total_hotel
+      if : hotel == 'remboursement' || hotel == 'avec bon de commande'
+      help : >
+        Le prix totel du logement de [[invite]].
+
+    -
+      label : À réserver par le secrétariat
+      type : select
+      variable : reservation_secretariat
+      default : "non"
+      if : hotel == 'avec bon de commande' || hotel == 'remboursement' && hotel_remboursement == 'frais réels'
+      icon : check-square
+      values :
+        - oui
+        - non
+      help : Indiquer si vous souhaiter que la réservation soit faite par le secrétariat.
+
+    -
+      label : Nom de l'hôtel
+      type : text
+      variable : nom_hotel
+      if : hotel == 'avec bon de commande' || hotel == 'remboursement' && hotel_remboursement == 'frais réels' && reservation_secretariat == 'oui'
+      icon : home
+      help : |
+        <div v-if="reservation_secretariat=='non'">
+          Nom de l'hôtel dans lequel sera loger [[invite]].
+          <div v-if="hotel == 'avec bon de commande'">
+            N'oublier pas d'envoyer la facture proforma à Véronique, bureau 106 bât. M2, <code>veronique.buffels@univ-lille1.fr</code>.
+          </div>
+        </div>
+        <div v-if="reservation_secretariat=='oui'">
+          Indiquer le(s) hôtel(s) de préférence (si nécessaire).
+        </div>
+
+-
+  section : Repas
+  id : repas
+  fields :
+
+    -
+      label : Frais de repas
+      type : select
+      variable : repas
+      default : "non"
+      icon : cutlery
+      values :
+        - "non"
+        - "oui - forfait"
+        - "oui - frais réels"
+      help : Est-ce que [[invite]] a besoin de frais de repas ? Si oui, comment effectuer le payement ?
+
+    -
+      label : Nombre de repas
+      type : number
+      variable : nombre_repas
+      if : repas == 'oui - forfait'
+      max : "[[duree_sejour]]"
+      icon : shopping-basket
+      total : "Total à rembourser : [[[nombre_repas*prix_forfait_repas | euro]]]."
+      help : Indiquer le nombre de repas à rembourser au prix de [[[prix_forfait_repas | euro]]]/repas.
+
+    -
+      label : Prix des repas
+      type : prix
+      variable : prix_repas
+      if : repas == 'oui - frais réels'
+      icon : euro
+      help : >
+        Indiquer le prix des repas à rembourser, dans la limite de [[[prix_max_repas | euro]]]/repas.
+        Ce qui donne comme limite (avec deux repas par jour) : [[[((duree_sejour+1)*2-tickets_ru)*prix_max_repas | euro]]].
+
+    -
+      label : Tickets restaurant
+      type : number
+      variable : tickets_ru
+      default : 0
+      icon : ticket
+      help : Indiquer le nombre ticket restaurant à [[[prix_ticket_ru | euro]]] dont bénéficiera [[invite]].
+
+    -
+      label : Total repas
+      type : totalprix
+      variable : total_repas
+      if : total_repas > 0
+      help : >
+        Le prix total des repas de [[invite]].
+
+-
+  section : Financement
+  id : financement
+  if : total_frais > 0
+  fields :
+
+    -
+      label : Budget
+      type : select
+      variable : budget
+      icon : list
+      values :
+        - Laboratoire
+        - Fédération
+        - ANR
+        - SAIC
+      help : Préciser sur quelle budget sera financer le séjour de [[invite]].
+
+    -
+      label : [[budget]]
+      type : text
+      variable : contrat
+      if : budget == 'ANR' || budget == 'SAIC'
+      icon : hashtag
+      help : "Préciser de quelle contrat [[budget]] il s'agit."
+
+    -
+      label : Responsable du [[budget]]
+      type : text
+      variable : nom_responsable
+      if : budget == 'ANR' || budget == 'SAIC'
+      icon : user-secret
+      placeholder : Prénom NOM
+      help : Préciser le responsable du contrat [[budget]].
+
+
+    -
+      label : Total frais
+      type : totalprix
+      variable : total_frais
+      help : >
+        Le prix total des frais de [[invite]].
+
+-
+  section : Besoins
+  id : besoins
+  if : duree_sejour > 0
+  fields :
+
+    -
+      label : Besoin de bureau
+      type : select
+      variable : bureau
+      default : "non"
+      icon : square
+      values :
+        - "oui"
+        - "non"
+      help : >
+        Est-ce que [[invite]]
+        aura besoin d'un bureau ?
+
+    -
+      label : Accès Wi-Fi
+      type : select
+      variable : acces_wifi
+      default : "non"
+      icon : wifi
+      values :
+        - "oui"
+        - "non"
+      help : >
+        Est-ce que [[invite]]
+        aura besoin d'un accès Wi-Fi ?<br>
+        En général les invités français n'ont pas besoin car il peuvent accéder par <i>eduroam</i>.
+
+    -
+      label : Accès filaire à internet
+      type : select
+      variable : acces_filaire
+      default : "non"
+      icon : exchange
+      values :
+        - "oui"
+        - "non"
+      help : >
+        Est-ce que [[invite]]
+        aura besoin d'un accès filaire ?<br>
+        Pour pouvoir accéder au réseau filaire du laboratoire il va falloir
+        que [[invite]] fournisse aux informaticiens
+        l'adresse physique de la carte ethernet de son portable.
+
+    -
+      label : Accès aux ressources de calcul
+      type : select
+      variable : acces_calculs
+      default : "non"
+      icon : calculator
+      values :
+        - "oui"
+        - "non"
+      help : >
+        Est-ce que [[invite]]
+        aura besoin d'un accès aux ressources de calcul du laboratoire ?
+
+    -
+      label : Date de naissance
+      type : date
+      variable : date_naissance
+      if : acces_wifi == 'oui' || acces_filaire  == 'oui' || acces_calculs  == 'oui'
+      icon : calendar
+      placeholder : JJ/MM/AAAA
+      min : date_debut
+      help : >
+        La date de naissance de [[invite]].<br>
+        <em>La date de naissance est nécessaire pour les services informatique de l'université Lille 1 tels que Wi-Fi, VPN, ...</em>
+

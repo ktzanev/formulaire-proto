@@ -1,0 +1,50 @@
+
+<!-- ======================================================= -->
+<div class="field-container" {% if include.if %} v-if="{{include.if}}" transition="fade" {% endif %}>
+  <div class="row">
+    <div class="col-sm-6  col-md-3 label-container">
+      <label for="{{include.variable}}">{{include.label}}</label>
+    </div>
+    <div class="col-sm-6  col-md-3 input-container">
+      {% if include.type == 'totalprix' %}
+        <span id="{{include.variable}}" class="totalprix">[[[{{include.variable}} | euro]]]</span>
+      {% else %}
+      <div class="input-group">
+        <span class="input-group-addon"><i class="fa fa-{{include.icon}}"></i></span>
+        {% case include.type %}
+        {% when 'select' %}
+          <select id="{{include.variable}}" v-model="{{include.variable}}" {% if include.onchange %}v-on:change="{{include.onchange}}"{% endif %} {% if include.next %}v-on:keyup.13="next({{include.next}})"{% endif %} class="form-control">
+          {% if include.values %}
+            {% for v in include.values %}
+              <option value="{{v}}">{{v}}</option>
+            {% endfor %}
+          {% endif %}
+          {% if include.v-for %}
+            <option v-for="v in {{include.v-for}}" :value.once="v">[[v.nom]]</option>
+          {% endif %}
+          </select>
+
+        {% when 'text' %}
+          <input type="text" id="{{include.variable}}" v-model="{{include.variable}}" {% if include.placeholder %}placeholder="{{include.placeholder}}"{% endif %} {% if include.next %}v-on:keyup.13="next({{include.next}})"{% endif %} class="form-control">
+
+        {% when 'email' %}
+          <input type="email" id="{{include.variable}}" v-model="{{include.variable}}" {% if include.placeholder %}placeholder="{{include.placeholder}}"{% endif %} {% if include.next %}v-on:keyup.13="next({{include.next}})"{% endif %} class="form-control">
+
+        {% when 'date' %}
+          <input type="text" id="{{include.variable}}" v-pikaday="{{include.variable}}" {% if include.max %}v-bind:max="{{include.max}}"{% endif %} {% if include.min %}v-bind:min="{{include.min}}"{% endif %} {% if include.placeholder %}placeholder="{{include.placeholder}}"{% endif %} {% if include.next %}v-on:keyup.13="next({{include.next}})"{% endif %} class="form-control">
+
+        {% when 'prix' %}
+          <input type="number" number id="{{include.variable}}" v-model="{{include.variable}}" step="{% if include.step %}{{include.step}}{% else %}1{% endif %}" min="{% if include.min %}{{include.min}}{% else %}0{% endif %}" {% if include.max %}max="{{include.max}}"{% endif %} {% if include.placeholder %}placeholder="{{include.placeholder}}"{% endif %} {% if include.next %}v-on:keyup.13="next({{include.next}})"{% endif %} class="form-control">
+
+        {% when 'number' %}
+          <input type="number" number id="{{include.variable}}" v-model="{{include.variable}}" step="{% if include.step %}{{include.step}}{% else %}1{% endif %}" min="{% if include.min %}{{include.min}}{% else %}0{% endif %}" {% if include.max %}max="{{include.max}}"{% endif %} {% if include.placeholder %}placeholder="{{include.placeholder}}"{% endif %} {% if include.next %}v-on:keyup.13="next({{include.next}})"{% endif %} class="form-control">
+
+        {% endcase %}
+      </div>
+      {% endif %}
+    </div>
+    <div class="col-sm-12 col-md-5 col-md-offset-1 help">
+      {{include.help}}
+    </div>
+  </div>
+</div>

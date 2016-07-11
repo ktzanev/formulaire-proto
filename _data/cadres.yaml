@@ -1,0 +1,97 @@
+-
+  abr: "admin"
+  nom: "Administration"
+-
+  abr: "budg"
+  nom: "Budget Invitation"
+-
+  abr: "colloq"
+  nom: "Colloquium"
+-
+  abr: "collabo"
+  nom: "Collaboration scientifique"
+-
+  abr: "cong"
+  nom: "Congrès"
+-
+  abr: "jury"
+  nom: "Jury de thèse ou HdR"
+-
+  abr: "saf"
+  nom: "Séminaire Analyse Fonctionnelle"
+  resp:
+    -
+      nom: "Kroum TZANEV"
+      mail: "kroum.tzanev@math.univ-lille1.fr"
+    -
+      nom: "Chafiq BENHIDA"
+      mail: "chafiq.benhida@math.univ-lille1.fr"
+  moyens:
+    budget: "Laboratoire"
+-
+  abr: "sag"
+  nom: "Séminaire Analyse Géométrique"
+  resp:
+    -
+      nom: "Léa BLANC-CENTI"
+      mail: "lea.blanc-centi@math.univ-lille1.fr"
+    -
+      nom: "Laura DESIDERI"
+      mail: "laura.desider@math.univ-lille1.fr"
+  moyens:
+    budget: "Laboratoire"
+-
+  abr: "san"
+  nom: "Séminaire Analyse Numérique et EDP"
+  resp:
+    -
+      nom: "Guillaume Dujardin"
+      mail: "guillaume.dujardin@inria.fr"
+    -
+      nom: "Ingrid LACROIX-VIOLET"
+      mail: "ingrid.violet@math.univ-lille1.fr"
+  moyens:
+    budget: "ANR"
+    contrat: "CEMPI"
+    nom_responsable: "Stephan DE BIÈVRE"
+-
+  abr: "sar"
+  nom: "Séminaire Arithmétique"
+-
+  abr: "sdoc"
+  nom: "Séminaire des doctorants et post-doctorants"
+-
+  abr: "sed"
+  nom: "Séminaire Equations Différentielles"
+  resp:
+    -
+      nom: "Alexandre JOLLIVET"
+      mail: "alexandre.jollivet@math.univ-lille1.fr"
+    -
+      nom: "Gabriel RIVIÈRE"
+      mail: "gabriel.riviere@math.univ-lille1.fr"
+  moyens:
+    budget: "ANR"
+    contrat: "CEMPI"
+    nom_responsable: "Stephan DE BIÈVRE"
+-
+  abr: "sga"
+  nom: "Séminaire Géométrie Algébrique"
+-
+  abr: "sgd"
+  nom: "Séminaire Géométrie Dynamique"
+-
+  abr: "shm"
+  nom: "Séminaire Histoire des Maths"
+-
+  abr: "spm"
+  nom: "Séminaire Physique Mathématique"
+-
+  abr: "sps"
+  nom: "Séminaire Probabilités et Statistique"
+-
+  abr: "stop"
+  nom: "Séminaire Topologie"
+-
+  abr: "autre"
+  nom: "Autre"

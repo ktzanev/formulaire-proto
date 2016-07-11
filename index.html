@@ -1,0 +1,39 @@
+---
+layout: default
+---
+<div id="app" v-cloak>
+
+<form action="" class="container" v-on:keydown.13.prevent="">
+{% for s in site.data.fields %}
+<fieldset {% if s.if%}v-if="{{s.if}}" transition="fade"{% endif %}>
+  <legend>{{s.section}}</legend>
+{% for f in s.fields %}
+{% capture field_type %}field_{{f.type}}.html{% endcapture %}
+{%
+  include field.html
+  type = f.type
+  variable = f.variable
+  if = f.if
+  label = f.label
+  icon = f.icon
+  v-for = f.v-for
+  values = f.values
+  onchange = f.onchange
+  next = f.next
+  max = f.max
+  min = f.min
+  placeholder = f.placeholder
+  total = f.total
+  help = f.help
+  content = f.content
+%}
+{% endfor %}
+</fieldset>
+{% endfor %}
+</form>
+
+{% for m in site.data.mails %}
+  {% include mail.html m=m %}
+{% endfor %}
+
+</div>

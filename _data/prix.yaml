@@ -1,0 +1,5 @@
+prix_forfait_nuit : 60 # le prix du forfait / nuit en €
+prix_max_nuit : 120 # le prix max en frais réels / nuit en €
+prix_forfait_repas : 15.25 # le prix du forfait repas en €
+prix_max_repas : 30.5 # le prix max d'un repas en frais réels en €
+prix_ticket_ru : 7.2 # le prix en euros d'un ticket RU
