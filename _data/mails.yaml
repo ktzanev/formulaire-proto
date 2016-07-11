@@ -13,3 +13,9 @@
     - repas
     - financement
     - besoins
+
+-
+  adress: "sysadmin@univ-lille1.fr"
+  data :
+    - invitant
+    - besoins
